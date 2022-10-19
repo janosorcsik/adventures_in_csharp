@@ -1,0 +1,3 @@
+# Enumeration
+
+Yield implemented manually.
