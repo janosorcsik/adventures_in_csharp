@@ -11,9 +11,9 @@ internal class YieldEnumerator<T> : IEnumerator<T>
         _predicate = predicate;
     }
 
-    public T Current { get; private set; }
+    public T Current { get; private set; } = default!;
 
-    object IEnumerator.Current => Current;
+    object IEnumerator.Current => Current!;
 
     public bool MoveNext()
     {
@@ -21,12 +21,14 @@ internal class YieldEnumerator<T> : IEnumerator<T>
         {
             var c = _enumerator.Current;
 
-            if (_predicate(c))
+            if (c is null || !_predicate(c))
             {
-                Current = c;
-
-                return true;
+                continue;
             }
+
+            Current = c;
+
+            return true;
         }
 
         return false;

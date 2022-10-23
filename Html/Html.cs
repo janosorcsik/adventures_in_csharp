@@ -9,7 +9,7 @@ internal static class Html
         var name = mBody.Member.Name;
         var pi = mBody.Member as PropertyInfo;
 
-        var value = pi.GetValue(model, null);
+        var value = pi?.GetValue(model, null);
 
         return $"<input type='text' id='{name}' name='{name}' value='{value}'>";
     }
