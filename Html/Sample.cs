@@ -4,10 +4,12 @@ internal static partial class Sample
     {
         Console.WriteLine("Html extension:");
 
-        var m = new Model { Name = "János" };
+        var m = new Model("János");
         var h = Html.TextBoxFor(m, x => x.Name);
         Console.WriteLine(h);
 
         Console.WriteLine();
     }
 }
+
+internal record Model(string Name);
