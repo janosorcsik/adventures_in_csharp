@@ -1,6 +1,6 @@
 using System.Collections;
 
-internal class YieldEnumerator<T> : IEnumerator<T>
+internal struct YieldEnumerator<T> : IEnumerator<T>
 {
     private readonly IEnumerator<T> _enumerator;
     private readonly Func<T, bool> _predicate;
