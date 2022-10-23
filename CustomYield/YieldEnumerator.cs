@@ -21,14 +21,12 @@ internal struct YieldEnumerator<T> : IEnumerator<T>
         {
             var c = _enumerator.Current;
 
-            if (c is null || !_predicate(c))
+            if (c is not null && _predicate(c))
             {
-                continue;
+                Current = c;
+
+                return true;
             }
-
-            Current = c;
-
-            return true;
         }
 
         return false;

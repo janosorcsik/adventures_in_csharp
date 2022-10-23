@@ -1,3 +1,3 @@
-# HTML Extension
+﻿# HTML Extension
 
-Generate text inpiut for model.
+Generate text input to a model.

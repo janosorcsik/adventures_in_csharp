@@ -1,3 +1,3 @@
 # Custom yield
 
-Yield implemented manually.
+Manully implemented yield.
