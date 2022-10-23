@@ -1,22 +1,21 @@
-static class ThreadStatic
+internal static class ThreadStatic
 {
-    [ThreadStatic]
-    private static int value = 10;
+    [ThreadStatic] private static int _value = 10;
 
     public static void Run()
     {
-        Console.WriteLine($"[ThreadStatic] Main thread start, value {value}");
-        value = 25;
+        Console.WriteLine($"[ThreadStatic] Main thread start, value {_value}");
+        _value = 25;
 
-        new Thread(new ThreadStart(Work)).Start();
-        new Thread(new ThreadStart(Work)).Start();
+        new Thread(Work).Start();
+        new Thread(Work).Start();
 
-        Console.WriteLine($"[ThreadStatic] Main thread end, value {value}");
+        Console.WriteLine($"[ThreadStatic] Main thread end, value {_value}");
     }
 
     private static void Work()
     {
-        value++;
-        Console.WriteLine($"[ThreadStatic] {Thread.CurrentThread.ManagedThreadId} thread, value {value}");
+        _value++;
+        Console.WriteLine($"[ThreadStatic] {Environment.CurrentManagedThreadId} thread, value {_value}");
     }
 }

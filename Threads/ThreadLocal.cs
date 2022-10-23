@@ -1,21 +1,21 @@
-static class ThreadLocal
+internal static class ThreadLocal
 {
-    private static ThreadLocal<int> value = new ThreadLocal<int>(() => 10);
+    private static readonly ThreadLocal<int> _value = new(() => 10);
 
     public static void Run()
     {
-        Console.WriteLine($"[ThreadLocal] Main thread start, value {value.Value}");
-        value.Value = 25;
+        Console.WriteLine($"[ThreadLocal] Main thread start, value {_value.Value}");
+        _value.Value = 25;
 
-        new Thread(new ThreadStart(Work)).Start();
-        new Thread(new ThreadStart(Work)).Start();
+        new Thread(Work).Start();
+        new Thread(Work).Start();
 
-        Console.WriteLine($"[ThreadLocal] Main thread end, value {value.Value}");
+        Console.WriteLine($"[ThreadLocal] Main thread end, value {_value.Value}");
     }
 
-    static void Work()
+    private static void Work()
     {
-        value.Value++;
-        Console.WriteLine($"[ThreadLocal] {Thread.CurrentThread.ManagedThreadId} thread, value {value.Value}");
+        _value.Value++;
+        Console.WriteLine($"[ThreadLocal] {Environment.CurrentManagedThreadId} thread, value {_value.Value}");
     }
 }

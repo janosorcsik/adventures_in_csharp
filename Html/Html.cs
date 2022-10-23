@@ -1,9 +1,9 @@
 using System.Linq.Expressions;
 using System.Reflection;
 
-static class Html
+internal static class Html
 {
-    public static string TextBoxFor<T, K>(T model, Expression<Func<T, K>> exp)
+    public static string TextBoxFor<T, TK>(T model, Expression<Func<T, TK>> exp)
     {
         var mBody = (MemberExpression)exp.Body;
         var name = mBody.Member.Name;

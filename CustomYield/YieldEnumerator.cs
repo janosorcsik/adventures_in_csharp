@@ -1,37 +1,44 @@
 using System.Collections;
 
-class YieldEnumerator<T> : IEnumerator<T>
+internal class YieldEnumerator<T> : IEnumerator<T>
 {
-    private IEnumerator<T> enumerator;
-    private Func<T, bool> predicate;
-    private T current;
-
-    public T Current => current;
-    object IEnumerator.Current => current;
+    private readonly IEnumerator<T> _enumerator;
+    private readonly Func<T, bool> _predicate;
 
     public YieldEnumerator(IEnumerator<T> enumerator, Func<T, bool> predicate)
     {
-        this.enumerator = enumerator;
-        this.predicate = predicate;
+        _enumerator = enumerator;
+        _predicate = predicate;
     }
 
+    public T Current { get; private set; }
+
+    object IEnumerator.Current => Current;
 
     public bool MoveNext()
     {
-        while (enumerator.MoveNext())
+        while (_enumerator.MoveNext())
         {
-            var c = enumerator.Current;
+            var c = _enumerator.Current;
 
-            if (predicate(c))
+            if (_predicate(c))
             {
-                current = c;
+                Current = c;
 
                 return true;
             }
         }
+
         return false;
     }
 
-    public void Dispose() => enumerator.Dispose();
-    public void Reset() => enumerator.Reset();
+    public void Dispose()
+    {
+        _enumerator.Dispose();
+    }
+
+    public void Reset()
+    {
+        _enumerator.Reset();
+    }
 }

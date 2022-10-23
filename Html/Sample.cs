@@ -1,4 +1,4 @@
-static partial class Sample
+internal static partial class Sample
 {
     public static void HtmlExtension()
     {
