@@ -1,5 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 
+[InProcess]
 [MemoryDiagnoser]
 public class StructBenchmark
 {
